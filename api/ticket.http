@@ -1,0 +1,36 @@
+@localhost = http://localhost
+@port = 8000
+@hostname = {{localhost}}:{{port}}/api
+
+### Get all Ticket (GET)
+GET {{hostname}}/tickets.jsonld
+Accept: application/ld+json
+
+###
+
+### Create a Ticket (POST)
+POST {{hostname}}/tickets.jsonld
+Content-Type: application/ld+json
+
+{
+    "title": "Monitor não liga",
+    "description": "Colaboradora relatou que seu monitor não liga mais"
+}
+
+### Edit a Ticket (PATCH)
+PATCH {{hostname}}/tickets/1.jsonld
+Content-Type: application/merge-patch+json
+
+{
+    "title": "Monitor não liga",
+    "description": "Colaboradora relatou que seu monitor não liga mais, talvez precise ser trocado cabo de força"
+}
+
+### Alter the Ticket status to cancelled (PATCH)
+
+PATCH {{hostname}}/tickets/1.jsonld
+Content-Type: application/merge-patch+json
+
+{
+    "status": "cancelled"
+}
