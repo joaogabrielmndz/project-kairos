@@ -1,0 +1,30 @@
+@hostname = http://localhost:8000/api
+
+# @name createAction
+POST {{hostname}}/actions
+Content-Type: application/ld+json
+
+{
+    "label": "Empréstimo Temporário"
+}
+
+###
+
+# @name getActions
+GET {{hostname}}/actions
+Accept: application/ld+json
+
+###
+
+# @name updateAction
+PUT {{hostname}}/actions/1
+Content-Type: application/ld+json
+
+{
+    "label": "Manutenção Corretiva"
+}
+
+###
+
+# @name deleteAction
+DELETE {{hostname}}/actions/1

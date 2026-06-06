@@ -1,36 +1,75 @@
-@localhost = http://localhost
-@port = 8000
-@hostname = {{localhost}}:{{port}}/api
+@hostname = http://localhost:8000/api
 
-### Get all Ticket (GET)
-GET {{hostname}}/tickets.jsonld
+# IMPORTANTE: Para que o POST abaixo funcione, certifique-se de ter rodado 
+# a criação inicial de pelo menos um registro com ID 1 nos outros arquivos .http.
+
+# @name createTicket
+POST {{hostname}}/tickets
+Content-Type: application/ld+json
+
+{
+    "title": "Mouse parou de responder no setor",
+    "description": "O periférico parou de funcionar subitamente no meio do expediente.",
+    "priority": "medium",
+    "category": "/api/categories/1",
+    "requester": "/api/users/1",
+    "departament": "/api/departaments/1",
+    "ticketType": "/api/ticket_types/1",
+    "action": "/api/actions/1",
+    "metaData": {
+        "patrimonio": "RBS-99832",
+        "so": "Fedora KDE"
+    }
+}
+
+###
+
+# @name getTickets
+GET {{hostname}}/tickets
 Accept: application/ld+json
 
 ###
 
-### Create a Ticket (POST)
-POST {{hostname}}/tickets.jsonld
-Content-Type: application/ld+json
-
-{
-    "title": "Monitor não liga",
-    "description": "Colaboradora relatou que seu monitor não liga mais"
-}
-
-### Edit a Ticket (PATCH)
-PATCH {{hostname}}/tickets/1.jsonld
+# @name updateTicketPriority
+PATCH {{hostname}}/tickets/1
 Content-Type: application/merge-patch+json
 
 {
-    "title": "Monitor não liga",
-    "description": "Colaboradora relatou que seu monitor não liga mais, talvez precise ser trocado cabo de força"
+    "priority": "high"
 }
 
-### Alter the Ticket status to cancelled (PATCH)
+###
 
-PATCH {{hostname}}/tickets/1.jsonld
+# @name assignTicket
+PATCH {{hostname}}/tickets/1
+Content-Type: application/merge-patch+json
+
+{
+    "assignedTo" : "/api/users/5",
+    "status" : "in_progress"
+}
+
+###
+
+# @name cancelTicket
+PATCH {{hostname}}/tickets/1
 Content-Type: application/merge-patch+json
 
 {
     "status": "cancelled"
 }
+
+###
+
+# @name suspendTicket
+PATCH {{hostname}}/tickets/1
+Content-Type: application/merge-patch+json
+
+{
+    "status": "suspend"
+}
+
+###
+
+# @name deleteTicket
+DELETE {{hostname}}/tickets/1

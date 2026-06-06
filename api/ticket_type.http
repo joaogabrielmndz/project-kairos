@@ -1,0 +1,30 @@
+@hostname = http://localhost:8000/api
+
+# @name createTicketType
+POST {{hostname}}/ticket_types
+Content-Type: application/ld+json
+
+{
+    "name": "Mouse com fio"
+}
+
+###
+
+# @name getTicketTypes
+GET {{hostname}}/ticket_types
+Accept: application/ld+json
+
+###
+
+# @name updateTicketType
+PUT {{hostname}}/ticket_types/1
+Content-Type: application/ld+json
+
+{
+    "name": "Mouse sem fio (Wireless)"
+}
+
+###
+
+# @name deleteTicketType
+DELETE {{hostname}}/ticket_types/1

@@ -1,0 +1,30 @@
+@hostname = http://localhost:8000/api
+
+# @name createDepartment
+POST {{hostname}}/departaments
+Content-Type: application/ld+json
+
+{
+    "name": "Hardware - Usuário Final"
+}
+
+###
+
+# @name getDepartments
+GET {{hostname}}/departaments
+Accept: application/ld+json
+
+###
+
+# @name updateDepartment
+PUT {{hostname}}/departaments/1
+Content-Type: application/ld+json
+
+{
+    "name": "Hardware - Corporativo"
+}
+
+###
+
+# @name deleteDepartment
+DELETE {{hostname}}/departaments/1

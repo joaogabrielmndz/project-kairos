@@ -1,0 +1,30 @@
+@hostname = http://localhost:8000/api
+
+# @name createCategory
+POST {{hostname}}/categories
+Content-Type: application/ld+json
+
+{
+    "name": "TI - Requisição de Item"
+}
+
+###
+
+# @name getCategories
+GET {{hostname}}/categories
+Accept: application/ld+json
+
+###
+
+# @name updateCategory
+PUT {{hostname}}/categories/1
+Content-Type: application/ld+json
+
+{
+    "name": "TI - Incidente de Sistema"
+}
+
+###
+
+# @name deleteCategory
+DELETE {{hostname}}/categories/1

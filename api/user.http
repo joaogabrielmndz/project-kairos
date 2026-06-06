@@ -1,0 +1,44 @@
+@hostname = http://localhost:8000/api
+
+# @name createUser
+POST {{hostname}}/users
+Content-Type: application/ld+json
+
+{
+    "email": "suporte.tecnico@empresa.com",
+    "password": "teste1234",
+    "fullName": "Fulano"
+}
+
+###
+
+# @name createUser
+POST {{hostname}}/users
+Content-Type: application/ld+json
+
+{
+    "email": "funcionario@empresa.com",
+    "password": "teste1234",
+    "fullName": "Ciclano"
+}
+
+###
+
+# @name getUsers
+GET {{hostname}}/users
+Accept: application/ld+json
+
+###
+
+# @name updateUser
+PATCH {{hostname}}/users/6
+Content-Type: application/merge-patch+json
+
+{
+    "fullName": "Fulano Alterado"
+}
+
+###
+
+# @name deleteUser
+DELETE {{hostname}}/users/1
