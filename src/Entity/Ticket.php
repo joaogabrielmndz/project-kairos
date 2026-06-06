@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use App\Enum\TicketPriority;
 use App\Enum\TicketStatus;
 use App\Repository\TicketRepository;
 use App\State\TicketPersistProcessor;
@@ -29,6 +30,30 @@ class Ticket
 
     #[ORM\Column(enumType: TicketStatus::class)]
     private ?TicketStatus $status = null;
+
+    #[ORM\Column(enumType: TicketPriority::class)]
+    private ?TicketPriority $priority = null;
+
+    #[ORM\ManyToOne(inversedBy: 'tickets')]
+    private ?Category $category = null;
+
+    #[ORM\ManyToOne(inversedBy: 'tickets')]
+    private ?User $requester = null;
+
+    #[ORM\ManyToOne(inversedBy: 'tickets')]
+    private ?User $assignedTo = null;
+
+    #[ORM\ManyToOne(inversedBy: 'tickets')]
+    private ?Departament $departament = null;
+
+    #[ORM\ManyToOne(inversedBy: 'tickets')]
+    private ?TicketType $ticketType = null;
+
+    #[ORM\Column(type: Types::JSONB)]
+    private ?array $metaData = null;
+
+    #[ORM\ManyToOne(inversedBy: 'tickets')]
+    private ?Action $action = null;
 
     public function getId(): ?int
     {
@@ -79,6 +104,102 @@ class Ticket
     public function setStatus(TicketStatus $status): static
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getPriority(): ?TicketPriority
+    {
+        return $this->priority;
+    }
+
+    public function setPriority(TicketPriority $priority): static
+    {
+        $this->priority = $priority;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    public function getRequester(): ?User
+    {
+        return $this->requester;
+    }
+
+    public function setRequester(?User $requester): static
+    {
+        $this->requester = $requester;
+
+        return $this;
+    }
+
+    public function getAssignedTo(): ?User
+    {
+        return $this->assignedTo;
+    }
+
+    public function setAssignedTo(?User $assignedTo): static
+    {
+        $this->assignedTo = $assignedTo;
+
+        return $this;
+    }
+
+    public function getDepartament(): ?Departament
+    {
+        return $this->departament;
+    }
+
+    public function setDepartament(?Departament $departament): static
+    {
+        $this->departament = $departament;
+
+        return $this;
+    }
+
+    public function getTicketType(): ?TicketType
+    {
+        return $this->ticketType;
+    }
+
+    public function setTicketType(?TicketType $ticketType): static
+    {
+        $this->ticketType = $ticketType;
+
+        return $this;
+    }
+
+    public function getMetaData(): mixed
+    {
+        return $this->metaData;
+    }
+
+    public function setMetaData(mixed $metaData): static
+    {
+        $this->metaData = $metaData;
+
+        return $this;
+    }
+
+    public function getAction(): ?Action
+    {
+        return $this->action;
+    }
+
+    public function setAction(?Action $action): static
+    {
+        $this->action = $action;
 
         return $this;
     }
