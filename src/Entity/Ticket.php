@@ -3,15 +3,33 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
 use App\Enum\TicketPriority;
 use App\Enum\TicketStatus;
 use App\Repository\TicketRepository;
 use App\State\TicketPersistProcessor;
+use App\State\CloneTicketProcessor;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TicketRepository::class)]
-#[ApiResource(processor: TicketPersistProcessor::class)]
+#[ApiResource(operations: [
+    new Get(),
+    new GetCollection(),
+    new Patch(),
+    new Delete(),
+    new Post(processor: TicketPersistProcessor::class),
+    new Post(
+        name: 'clone',
+        uriTemplate: '/tickets/{id}/clone',
+        class: Ticket::class,
+        processor: CloneTicketProcessor::class,
+    )
+])]
 class Ticket
 {
     #[ORM\Id]
