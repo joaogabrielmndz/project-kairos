@@ -28,7 +28,6 @@ class AppFixtures extends Fixture
 
         $admin->setRoles(['ROLE_ADMIN']);
 
-        $admin->setPassword('demo123');
         $manager->persist($admin);
         $this->addReference('user_tecnico', $admin);
 
