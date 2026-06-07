@@ -28,11 +28,16 @@ Content-Type: application/ld+json
 
 {}
 
-
 ###
 
 # @name getTickets
 GET {{hostname}}/tickets
+Accept: application/ld+json
+
+###
+
+# @name searchByTicketNumber
+GET {{hostname}}/tickets?ticketNumber=2026558677
 Accept: application/ld+json
 
 ###

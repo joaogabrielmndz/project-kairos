@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\GetCollection;
@@ -41,6 +43,7 @@ class Ticket
     private ?string $title = null;
 
     #[ORM\Column(type: Types::BIGINT)]
+    #[ApiFilter(SearchFilter::class, strategy: 'exact')]
     private ?string $ticketNumber = null;
 
     #[ORM\Column(type: Types::TEXT)]
