@@ -42,6 +42,12 @@ Accept: application/ld+json
 
 ###
 
+# @name getTicketsByStatusAndDepartament
+GET {{hostname}}/tickets?status=in_progress&departament=/departaments/1
+Accept: application/ld+json
+
+###
+
 # @name updateTicketPriority
 PATCH {{hostname}}/tickets/1
 Content-Type: application/merge-patch+json

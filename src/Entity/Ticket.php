@@ -51,20 +51,21 @@ class Ticket
 
     #[ORM\Column(enumType: TicketStatus::class)]
     private ?TicketStatus $status = null;
-
+    
     #[ORM\Column(enumType: TicketPriority::class)]
     private ?TicketPriority $priority = null;
-
+    
     #[ORM\ManyToOne(inversedBy: 'tickets')]
     private ?Category $category = null;
-
+    
     #[ORM\ManyToOne(inversedBy: 'tickets')]
     private ?User $requester = null;
-
+    
     #[ORM\ManyToOne(inversedBy: 'tickets')]
     private ?User $assignedTo = null;
-
+    
     #[ORM\ManyToOne(inversedBy: 'tickets')]
+    #[ApiFilter(SearchFilter::class, strategy: 'exact')]
     private ?Departament $departament = null;
 
     #[ORM\ManyToOne(inversedBy: 'tickets')]
