@@ -17,42 +17,51 @@ use App\State\TicketPersistProcessor;
 use App\State\CloneTicketProcessor;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: TicketRepository::class)]
-#[ApiResource(operations: [
-    new Get(),
-    new GetCollection(),
-    new Patch(),
-    new Delete(),
-    new Post(processor: TicketPersistProcessor::class),
-    new Post(
-        name: 'clone',
-        uriTemplate: '/tickets/{id}/clone',
-        class: Ticket::class,
-        processor: CloneTicketProcessor::class,
-    )
+#[ApiResource(
+    normalizationContext: ['groups' => 'ticket:read'],
+    operations: [
+        new Get(),
+        new GetCollection(),
+        new Patch(),
+        new Delete(),
+        new Post(processor: TicketPersistProcessor::class),
+        new Post(
+            name: 'clone',
+            uriTemplate: '/tickets/{id}/clone',
+            class: Ticket::class,
+            processor: CloneTicketProcessor::class,
+        )
 ])]
 class Ticket
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('ticket:read')]
     private ?int $id = null;
 
     #[ORM\Column(length: 150)]
+    #[Groups('ticket:read')]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::BIGINT)]
     #[ApiFilter(SearchFilter::class, strategy: 'exact')]
+    #[Groups('ticket:read')]
     private ?string $ticketNumber = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups('ticket:read')]
     private ?string $description = null;
 
     #[ORM\Column(enumType: TicketStatus::class)]
+    #[Groups('ticket:read')]
     private ?TicketStatus $status = null;
     
     #[ORM\Column(enumType: TicketPriority::class)]
+    #[Groups('ticket:read')]
     private ?TicketPriority $priority = null;
     
     #[ORM\ManyToOne(inversedBy: 'tickets')]
@@ -62,6 +71,7 @@ class Ticket
     private ?User $requester = null;
     
     #[ORM\ManyToOne(inversedBy: 'tickets')]
+    #[Groups('ticket:read')]
     private ?User $assignedTo = null;
     
     #[ORM\ManyToOne(inversedBy: 'tickets')]
