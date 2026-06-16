@@ -1,20 +1,38 @@
 <script setup lang="ts">
 import AppUserMenu from './AppUserMenu.vue';
 
+const search = ref('')
 </script>
 
 <template>
-    <UHeader>
-      <template #left>
-        <NuxtLink to="/">
-          <span class="text-2xl">Kairos</span>
-        </NuxtLink>
-      </template>
+  <UHeader :ui="{ center: 'flex-1 justify-center px-4' }">
+    <template #left>
+      <NuxtLink to="/" class="text-2xl font-bold text-primary">
+        Kairós
+      </NuxtLink>
+    </template>
 
-      <template #right>
-        <UColorModeButton />
+    <div class="mx-auto w-full max-w-xl">
+      <UInput
+        v-model="search"
+        icon="i-lucide-search"
+        placeholder="Buscar chamados..."
+        size="lg"
+        class="w-full"
+      />
+    </div>
 
-        <AppUserMenu />
-      </template>
-    </UHeader>
+    <template #right>
+      <UColorModeButton />
+
+      <UButton
+        icon="i-lucide-bell"
+        color="neutral"
+        variant="ghost"
+        aria-label="Notificações"
+      />
+
+      <AppUserMenu />
+    </template>
+  </UHeader>
 </template>
