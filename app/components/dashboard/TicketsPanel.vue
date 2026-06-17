@@ -20,7 +20,7 @@ const tabs = [
 ]
 
 const activeTab = ref(0)
-const search = ref('')
+const newTicketOpen = ref(false)
 </script>
 
 <template>
@@ -50,11 +50,12 @@ const search = ref('')
       </nav>
 
       <div class="flex items-center gap-2">
-        <UInput
-          v-model="search"
-          icon="i-lucide-search"
-          placeholder="Buscar chamados..."
-          class="w-full sm:w-64"
+        <UButton
+          icon="i-lucide-plus"
+          label="Abrir Novo Chamado"
+          color="primary"
+          class="font-semibold"
+          @click="newTicketOpen = true"
         />
         <UButton
           icon="i-lucide-sliders-horizontal"
@@ -156,5 +157,7 @@ const search = ref('')
         />
       </div>
     </div>
+
+    <DashboardNewTicketModal v-model:open="newTicketOpen" />
   </div>
 </template>
