@@ -11,6 +11,10 @@ import AppUserMenu from './AppUserMenu.vue';
         </NuxtLink>
       </template>
 
+      <template #center>
+        <UInput class="w-full flex-1" icon="i-lucide-search" size="xl" variant="outline" placeholder="Buscar por um chamado" />
+      </template>
+
       <template #right>
         <UColorModeButton />
 
