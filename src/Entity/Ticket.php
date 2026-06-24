@@ -15,11 +15,13 @@ use App\Enum\TicketStatus;
 use App\Repository\TicketRepository;
 use App\State\TicketPersistProcessor;
 use App\State\CloneTicketProcessor;
+use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: TicketRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 #[ApiResource(
     normalizationContext: ['groups' => 'ticket:read'],
     operations: [
@@ -86,6 +88,10 @@ class Ticket
 
     #[ORM\ManyToOne(inversedBy: 'tickets')]
     private ?Action $action = null;
+
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    #[Groups('ticket:read')]
+    private ?\DateTimeImmutable $createdAt = null;
 
     public function getId(): ?int
     {
@@ -234,5 +240,16 @@ class Ticket
         $this->action = $action;
 
         return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    #[ORM\PrePersist]
+    public function setCreatedAt(): void
+    {
+        $this->createdAt = new DateTimeImmutable();
     }
 }
