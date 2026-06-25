@@ -17,7 +17,7 @@ security:
             pattern: ^/(_profiler|_wdt|assets|build)/
             security: false
         main:
-            pattern: ^/api/login 
+            pattern: ^/api/v1/login 
             stateless: true
             json_login:
                 check_path: api_login_check
@@ -26,7 +26,7 @@ security:
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
         api:
-            pattern: ^/api/
+            pattern: ^/api/v1/
             stateless: true
             jwt: ~
 
@@ -34,10 +34,10 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
-        - { path: ^/api/login, roles: PUBLIC_ACCESS } 
-        - { path: ^/docs, roles: PUBLIC_ACCESS } # Allows accessing the Swagger UI docs
-        - { path: ^/contexts, roles: PUBLIC_ACCESS } # Allows accessing the Swagger UI contexts
-        - { path: ^/auth, roles: PUBLIC_ACCESS }
+        - { path: ^/api/v1/login, roles: PUBLIC_ACCESS } 
+        - { path: ^/v1/docs/, roles: PUBLIC_ACCESS } # Allows accessing the Swagger UI docs
+        - { path: ^/v1/contexts/, roles: PUBLIC_ACCESS } # Allows accessing the Swagger UI contexts
+        - { path: ^/v1/auth/, roles: PUBLIC_ACCESS }
         - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
 
 when@test:
